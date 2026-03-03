@@ -1,6 +1,22 @@
 #!/bin/bash
 
+# Root check
+if [ $(id -u) -ne 0 ]; then
+    echo "Please run this script as root. You can do so by using 'sudo su'."
+    exit
+fi
+
+echo "+##############################################+"
+echo "| Policy Test Tool                            |"
+echo "| -------------------------------------------- |"
+echo "| Generates user policy configuration         |"
+echo "+##############################################+"
+
+sleep 1
+
 read -p "Enter your email: " email
+
+mkdir -p /usr/bin/policy-test-tool/
 
 cat > /usr/bin/policy-test-tool/policies.json << EOF
 {
@@ -45,4 +61,7 @@ cat > /usr/bin/policy-test-tool/policies.json << EOF
 }
 EOF
 
-echo "Written to /usr/bin/policy-test-tool/policies.json for $email"
+echo ""
+echo "Policy file successfully written!"
+echo "Location: /usr/bin/policy-test-tool/policies.json"
+echo "Configured for: $email"
